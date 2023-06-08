@@ -20,3 +20,27 @@ def test_apply_discount():
     assert item2.apply_discount() == None
     assert item2.price == 20000
 
+
+def test_add_item():
+    item1 = Item('Телефон', 10000, 5)
+    item2 = Item('Ноутбук', 20000, 3)
+
+    Item.add_item(item1)
+    Item.add_item(item2)
+
+    assert len(Item.all) == 2
+    assert item1 in Item.all
+    assert item2 in Item.all
+
+
+def test_name_setter():
+    item = Item('Телефон', 10000, 5)
+
+    item.name = 'Смартфон'
+    assert item.name == 'Смартфон'
+
+    item.name = 'СуперСмартфон'
+    assert item.name == 'Смартфон'  # Длинное имя не должно измениться
+
+    item.name = 'Ноутбук'
+    assert item.name == 'Ноутбук'
