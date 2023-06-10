@@ -1,14 +1,13 @@
 import csv
 import os
+import math
+
 class Item:
     """
     Класс для представления товара в магазине.
     """
     pay_rate = 1.0
     all = []
-
-    def __repr__(self):
-        return self._name
 
     def __init__(self, name: str, price: float, quantity: int) -> None:
         """
@@ -35,7 +34,7 @@ class Item:
         if len(name) < 10:
             self._name = name
         else:
-            pass
+            raise Exception("Длина наименования товара превышает 10 символов.")
 
     def calculate_total_price(self) -> float:
         """
@@ -51,8 +50,8 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
-        with open('C:/Users/Админ/PycharmProjects/electronics-shop-project/src/items.csv', 'r',
-                  encoding='cp1251') as csvfile:
+        file_path = os.path.join(os.path.dirname(__file__), 'items.csv')
+        with open(file_path, 'r', encoding='cp1251') as csvfile:
             reader = csv.DictReader(csvfile)
             items = []
             for row in reader:
@@ -66,5 +65,5 @@ class Item:
 
     @staticmethod
     def string_to_number(value):
-        new_value = round(float(value) / 5) * 5
-        return round(new_value)
+        new_value = math.floor(float(value))
+        return new_value
