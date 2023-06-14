@@ -2,6 +2,7 @@ import csv
 import os
 import math
 
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -20,6 +21,12 @@ class Item:
         self._name = name
         self.price = price
         self.quantity = quantity
+
+    def __repr__(self):
+        return f'{self.__class__.__name__}{self.name, self.price, self.quantity}'
+
+    def __str__(self):
+        return self._name
 
     @classmethod
     def add_item(cls, item):

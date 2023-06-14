@@ -44,3 +44,13 @@ def test_name_setter():
 
     item.name = 'Ноутбук'
     assert item.name == 'Ноутбук'
+
+
+def test__repr__():
+    test_item = Item("Смартфон", 10, 5)
+    assert repr(test_item) == "Item('Смартфон', 10, 5)"
+
+
+def test__str__():
+    test_item = Item("Телефон", 20, 3)
+    assert str(test_item) == "Телефон"
