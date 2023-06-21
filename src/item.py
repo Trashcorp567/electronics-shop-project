@@ -27,12 +27,10 @@ class Item:
         return f'{self.__class__.__name__}{self.name, self.price, self.quantity}'
 
     def __add__(self, other):
-        if isinstance(other, Item):
-            return self.quantity + other.quantity
-        elif isinstance(other, Phone):
+        if isinstance(other, Item) or isinstance(other, Phone):
             return self.quantity + other.quantity
         else:
-            return None
+            raise TypeError(f"Объект {other} не является экземпляром класса Item или Phone")
 
     def __str__(self):
         return self._name

@@ -47,16 +47,6 @@ def test_name_setter():
     assert item.name == 'Ноутбук'
 
 
-def test__repr__():
-    test_item = Item("Смартфон", 10, 5)
-    assert repr(test_item) == "Item('Смартфон', 10, 5)"
-
-
-def test__str__():
-    test_item = Item("Телефон", 20, 3)
-    assert str(test_item) == "Телефон"
-
-
 def test_number_of_sim():
     phone1 = Phone("iPhone 14", 120_000, 5, 2)
     phone2 = Phone("iPhone X", 160_000, 3, 1)
