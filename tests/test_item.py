@@ -2,6 +2,7 @@
 from src.item import Item
 from src.phone import Phone
 
+
 def test_calculate_total_price():
     item1 = Item("Смартфон", 10000, 20)
     item2 = Item("Ноутбук", 20000, 5)
@@ -67,4 +68,3 @@ def test_add_phone():
     phone1 = Phone("iPhone 14", 120_000, 90, 2)
     item1 = Item("Смартфон", 10000, 120)
     assert item1 + phone1 == 210
-
