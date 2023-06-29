@@ -3,6 +3,10 @@ import os
 import math
 
 
+class InstantiateCSVError(Exception):
+    pass
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -47,8 +51,8 @@ class Item:
     def name(self, name):
         if len(name) < 10:
             self._name = name
-        else:
-            raise Exception("Длина наименования товара превышает 10 символов.")
+        elif len(name) > 10:
+            self._name = name[:10]
 
     def calculate_total_price(self) -> float:
         """
@@ -65,17 +69,22 @@ class Item:
     @classmethod
     def instantiate_from_csv(cls):
         file_path = os.path.join(os.path.dirname(__file__), 'items.csv')
-        with open(file_path, 'r', encoding='cp1251') as csvfile:
-            reader = csv.DictReader(csvfile)
-            items = []
-            for row in reader:
-                name = row["name"]
-                price = float(row['price'])
-                quantity = int(row['quantity'])
-                item = cls(name, price, quantity)
-                cls.add_item(item)  # Добавить экземпляр в список all
-                items.append(item)
+        try:
+            with open(file_path, 'r', encoding='cp1251') as csvfile:
+                reader = csv.DictReader(csvfile)
+                items = []
+                for row in reader:
+                    name = row["name"]
+                    price = float(row['price'])
+                    quantity = int(row['quantity'])
+                    item = cls(name, price, quantity)
+                    cls.add_item(item)  # Добавить экземпляр в список all
+                    items.append(item)
+                else:
+                    raise InstantiateCSVError("Файл item.csv поврежден")
             return items
+        except(InstantiateCSVError):
+            raise FileNotFoundError("Отсутствует файл item.csv")
 
     @staticmethod
     def string_to_number(value):

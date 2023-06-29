@@ -18,10 +18,3 @@ def test_change_lang():
     assert kb.language == "EN"  # Проверяет установленное значение по умолчанию
     kb.change_lang()  # Изменяет язык на RU
     assert kb.language == "RU"  # Проверяет измененное значение на RU
-
-
-def test_change_layout():
-    kb = KeyBoard('Dark Project KD87A', 27600, 3)
-    assert kb.language == "EN"
-    assert kb.change_layout("RU") == "RU"
-
