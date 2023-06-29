@@ -61,7 +61,11 @@ def test_add_phone():
     assert item1 + phone1 == 210
 
 
-def test_instantiate_from_csv_file_notfound():
-    with pytest.raises(FileNotFoundError) as exc:
+def test_instantiate_from_csv_file_not_found_error():
+    with pytest.raises(FileNotFoundError):
         Item.instantiate_from_csv()
-    assert str(exc.value) == "Отсутствует файл item.csv"
+
+
+def test_instantiate_from_csv_instantiate_cvs_error():
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv()

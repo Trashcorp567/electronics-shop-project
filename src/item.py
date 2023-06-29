@@ -49,18 +49,18 @@ class Item:
 
     @name.setter
     def name(self, name):
-        if len(name) < 10:
+        if len(name) <= 10:
             self._name = name
-        elif len(name) > 10:
+        else:
             self._name = name[:10]
 
-    def calculate_total_price(self) -> float:
+    def calculate_total_price(self):
         """
         Рассчитывает общую стоимость конкретного товара в магазине.
         """
         return self.price * self.quantity
 
-    def apply_discount(self) -> None:
+    def apply_discount(self):
         """
         Применяет установленную скидку для конкретного товара.
         """
@@ -72,19 +72,20 @@ class Item:
         try:
             with open(file_path, 'r', encoding='cp1251') as csvfile:
                 reader = csv.DictReader(csvfile)
-                items = []
                 for row in reader:
                     name = row["name"]
                     price = float(row['price'])
                     quantity = int(row['quantity'])
                     item = cls(name, price, quantity)
-                    cls.add_item(item)  # Добавить экземпляр в список all
-                    items.append(item)
-                else:
-                    raise InstantiateCSVError("Файл item.csv поврежден")
-            return items
-        except(InstantiateCSVError):
-            raise FileNotFoundError("Отсутствует файл item.csv")
+                    cls.add_item(item)
+
+        except FileNotFoundError:
+            raise FileNotFoundError("Отсутствует файл items.csv")
+
+        except TypeError:
+            raise InstantiateCSVError("Файл items.csv поврежден")
+
+        return cls.all
 
     @staticmethod
     def string_to_number(value):
